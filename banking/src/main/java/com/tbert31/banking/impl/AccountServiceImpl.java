@@ -2,12 +2,15 @@ package com.tbert31.banking.impl;
 
 import com.tbert31.banking.dto.AccountDto;
 import com.tbert31.banking.dto.UserDto;
+import com.tbert31.banking.exceptions.OperationNonPermittedException;
 import com.tbert31.banking.models.Account;
 import com.tbert31.banking.models.User;
 import com.tbert31.banking.services.AccountService;
 import com.tbert31.banking.validators.ObjectsValidator;
 import com.tbert31.banking.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.iban4j.CountryCode;
+import org.iban4j.Iban;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -23,9 +26,21 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Integer save(AccountDto dto) {
+        if(dto.getId() != null){
+            throw new OperationNonPermittedException(
+                    "Account cannot be updated",
+                    "save account",
+                    "Account",
+                    "Update not permitted"
+            );
+        }
+
         validator.validate(dto);
         Account account = AccountDto.toEntity(dto);
-        // to do generate random IBAN
+
+        // generate random IBAN
+        account.setIban(generateRandomIban());
+
         return repository.save(account).getId();
     }
 
@@ -41,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountDto findById(Integer id) {
         return repository.findById(id)
                 .map(AccountDto::fromEntity)
-                .orElseThrow(() -> new EntityNotFoundException("No user was found with the provided ID" + id));
+                .orElseThrow(() -> new EntityNotFoundException("No account was found with the provided ID" + id));
     }
 
     @Override
@@ -51,15 +66,14 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private String generateRandomIban(){
-        //todo generate an IBAN
+        String iban = Iban.random(CountryCode.FR).toFormattedString();
 
+        boolean ibanExists = repository.findByIban(iban).isPresent();
 
-        //Check if the IBAN already exists
+        if(ibanExists){
+            generateRandomIban();
+        }
 
-        //if exists -> generate new random IBAN
-
-        //if not exist -> return generated IBAN
-
-        return "";
+        return iban;
     }
 }
