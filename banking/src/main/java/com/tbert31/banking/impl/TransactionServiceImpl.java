@@ -2,6 +2,7 @@ package com.tbert31.banking.impl;
 
 import com.tbert31.banking.dto.TransactionDto;
 import com.tbert31.banking.models.Transaction;
+import com.tbert31.banking.models.TransactionType;
 import com.tbert31.banking.repositories.TransactionRepository;
 import com.tbert31.banking.services.TransactionService;
 import com.tbert31.banking.validators.ObjectsValidator;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,9 @@ public class TransactionServiceImpl implements TransactionService {
     public Integer save(TransactionDto dto) {
         validator.validate(dto);
         Transaction transaction = TransactionDto.toEntity(dto);
+        BigDecimal transactionMultiplier =  BigDecimal.valueOf(getTransactionMultiplier(transaction.getType()));
+        BigDecimal amount = transaction.getAmount().multiply(transactionMultiplier);
+        transaction.setAmount(amount);
         return repository.save(transaction).getId();
     }
 
@@ -38,12 +43,24 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionDto findById(Integer id) {
         return repository.findById(id)
                 .map(TransactionDto::fromEntity)
-                .orElseThrow(()->new EntityNotFoundException("No transaction found with the ID "+id));
+                .orElseThrow(()->new EntityNotFoundException("No transaction was found with the ID "+id));
     }
 
     @Override
     public void delete(Integer id) {
         // todo check delete
         repository.deleteById(id);
+    }
+
+    private int getTransactionMultiplier(TransactionType type){
+        return TransactionType.TRANSFER == type ? 1 : -1;
+    }
+
+    @Override
+    public List<TransactionDto> findAllByUserId(Integer userId) {
+        return repository.findAllByUserId(userId)
+                .stream()
+                .map(TransactionDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }

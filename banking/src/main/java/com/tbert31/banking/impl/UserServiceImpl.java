@@ -1,9 +1,13 @@
 package com.tbert31.banking.impl;
 
 
+import com.tbert31.banking.dto.AccountDto;
 import com.tbert31.banking.dto.UserDto;
+import com.tbert31.banking.models.Account;
 import com.tbert31.banking.models.User;
+import com.tbert31.banking.repositories.AccountRepository;
 import com.tbert31.banking.repositories.UserRepository;
+import com.tbert31.banking.services.AccountService;
 import com.tbert31.banking.services.UserService;
 import com.tbert31.banking.validators.ObjectsValidator;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +23,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final AccountService accountService;
     private final ObjectsValidator<UserDto> validator;
 
     @Override
@@ -50,5 +55,33 @@ public class UserServiceImpl implements UserService {
     public void delete(Integer id) {
         // todo check before delete
         repository.deleteById(id);
+    }
+
+    @Override
+    public Integer validateAccount(Integer id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No user was found for user account validation"));
+        user.setActive(true);
+
+        // create a bank account
+        AccountDto account = AccountDto.builder()
+                .user(UserDto.fromEntity(user))
+                .build();
+        accountService.save(account);
+
+        repository.save(user);
+
+        return user.getId();
+    }
+
+    @Override
+    public Integer invalidateAccount(Integer id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No user was found for user account validation"));
+        user.setActive(false);
+
+        repository.save(user);
+
+        return user.getId();
     }
 }

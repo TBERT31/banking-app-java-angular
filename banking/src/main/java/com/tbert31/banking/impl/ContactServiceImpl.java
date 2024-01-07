@@ -38,12 +38,20 @@ public class ContactServiceImpl implements ContactService {
     public ContactDto findById(Integer id) {
         return repository.findById(id)
                 .map(ContactDto::fromEntity)
-                .orElseThrow(()->new EntityNotFoundException("No contact found with the ID "+id));
+                .orElseThrow(()->new EntityNotFoundException("No contact was found with the ID "+id));
     }
 
     @Override
     public void delete(Integer id) {
         // todo check delete
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<ContactDto> findAllByUserId(Integer userId) {
+        return repository.findAllByUserId(userId)
+                .stream()
+                .map(ContactDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }

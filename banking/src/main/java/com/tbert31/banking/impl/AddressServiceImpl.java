@@ -38,7 +38,7 @@ public class AddressServiceImpl implements AddressService {
     public AddressDto findById(Integer id) {
         return repository.findById(id)
                 .map(AddressDto::fromEntity)
-                .orElseThrow(() -> new EntityNotFoundException("No address found with the ID "+id));
+                .orElseThrow(() -> new EntityNotFoundException("No address was found with the ID "+id));
     }
 
     @Override

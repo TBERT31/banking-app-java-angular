@@ -26,20 +26,33 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Integer save(AccountDto dto) {
-        if(dto.getId() != null){
+        /*if(dto.getId() != null){
             throw new OperationNonPermittedException(
                     "Account cannot be updated",
                     "save account",
                     "Account",
                     "Update not permitted"
             );
-        }
+        }*/
 
         validator.validate(dto);
         Account account = AccountDto.toEntity(dto);
 
-        // generate random IBAN
-        account.setIban(generateRandomIban());
+        boolean userHasAlreadyAnAccount = repository.findByUserId(account.getUser().getId()).isPresent();
+
+        if(userHasAlreadyAnAccount){
+            throw new OperationNonPermittedException(
+                    "The selected user has already an active account",
+                    "Create account",
+                    "Account service",
+                    "Account creation"
+            );
+        }
+
+        // generate random IBAN when creating new account else do not update the IBAN
+        if(dto.getId() == null){
+            account.setIban(generateRandomIban());
+        }
 
         return repository.save(account).getId();
     }
