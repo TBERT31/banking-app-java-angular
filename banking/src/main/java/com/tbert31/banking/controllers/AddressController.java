@@ -14,7 +14,7 @@ import java.util.List;
 public class AddressController {
     private final AddressService service;
 
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<Integer> save(
             @RequestBody AddressDto addressDto
     ){
@@ -28,7 +28,7 @@ public class AddressController {
 
     @GetMapping("/{address-id}")
     public ResponseEntity<AddressDto> findById(
-            @PathVariable("user-id") Integer addressId
+            @PathVariable("address-id") Integer addressId
     ){
         return ResponseEntity.ok(service.findById(addressId));
     }
