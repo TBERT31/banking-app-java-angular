@@ -1,8 +1,10 @@
 package com.tbert31.banking.controllers;
 
 
+import com.tbert31.banking.dto.TransactionSumDetails;
 import com.tbert31.banking.services.StatisticsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +20,10 @@ public class StatisticsController {
     private final StatisticsService service;
 
     @GetMapping("/sum-by-date/{user-id}")
-    public ResponseEntity<Map<LocalDate, BigDecimal>> findSumTransactionsByDate(
+    public ResponseEntity<List<TransactionSumDetails>> findSumTransactionsByDate(
             @PathVariable("user-id") Integer userId,
-            @RequestParam("strat-date") LocalDate startDate,
-            @RequestParam("end-date") LocalDate endDate
+            @RequestParam("start-date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+            @RequestParam("end-date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
     ){
         return ResponseEntity.ok(service.findSumTransactionsByDate(startDate, endDate, userId));
     }
@@ -33,11 +35,11 @@ public class StatisticsController {
         return ResponseEntity.ok(service.getAccountBalance(userId));
     }
 
-    @GetMapping("/highest-transfer/{user-id}")
-    public ResponseEntity<BigDecimal> highestTransfer(
+    @GetMapping("/highest-transfert/{user-id}")
+    public ResponseEntity<BigDecimal> highestTransfert(
             @PathVariable("user-id") Integer userId
     ){
-        return ResponseEntity.ok(service.highestTransfer(userId));
+        return ResponseEntity.ok(service.highestTransfert(userId));
     }
 
     @GetMapping("/highest-deposit/{user-id}")

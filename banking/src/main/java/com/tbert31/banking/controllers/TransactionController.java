@@ -19,9 +19,10 @@ public class TransactionController {
     @PostMapping("/")
     public ResponseEntity<Integer> save(
             @RequestBody TransactionDto transactionDto
-    ){
+    ) {
         return ResponseEntity.ok(service.save(transactionDto));
     }
+
 
     @GetMapping("/")
     public ResponseEntity<List<TransactionDto>> findAll(){

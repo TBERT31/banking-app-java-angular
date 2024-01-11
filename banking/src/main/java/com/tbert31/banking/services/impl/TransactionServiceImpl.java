@@ -53,7 +53,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private int getTransactionMultiplier(TransactionType type){
-        return TransactionType.TRANSFER == type ? 1 : -1;
+        return TransactionType.TRANSFERT == type ? -1 : 1;
     }
 
     @Override

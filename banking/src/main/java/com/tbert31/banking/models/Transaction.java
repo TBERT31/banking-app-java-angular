@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,6 +22,9 @@ public class Transaction extends AbstractEntity{
     @Enumerated(EnumType.STRING)
     private TransactionType type;
     private String destinationIban;
+
+    @Column(updatable = false)
+    private LocalDate transactionDate;
 
     @ManyToOne
     @JoinColumn(name = "id_user")

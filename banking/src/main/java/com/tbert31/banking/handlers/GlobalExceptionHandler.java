@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(OperationNonPermittedException.class)
     public ResponseEntity<ExceptionRepresentation> handleException(OperationNonPermittedException exception){
         ExceptionRepresentation representation = ExceptionRepresentation.builder()
-                .errorMessage(exception.getMessage())
+                .errorMessage(exception.getErrorMsg())
                 .build();
 
         return ResponseEntity
