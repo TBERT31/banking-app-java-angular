@@ -33,14 +33,14 @@ public class StatisticsController {
         return ResponseEntity.ok(service.getAccountBalance(userId));
     }
 
-    @GetMapping("/highest-transfer")
+    @GetMapping("/highest-transfer/{user-id}")
     public ResponseEntity<BigDecimal> highestTransfer(
             @PathVariable("user-id") Integer userId
     ){
         return ResponseEntity.ok(service.highestTransfer(userId));
     }
 
-    @GetMapping("/highest-deposit")
+    @GetMapping("/highest-deposit/{user-id}")
     public ResponseEntity<BigDecimal> highestDeposit(
             @PathVariable("user-id") Integer userId
     ){
