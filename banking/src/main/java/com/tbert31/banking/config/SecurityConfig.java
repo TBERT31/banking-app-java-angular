@@ -28,22 +28,38 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeHttpRequests(
+                .authorizeRequests(
                         (request) ->
-                            {
-                                try{
-                                    request.antMatchers("/**/authenticate", "/**/register")
-                                            .permitAll()
-                                            .anyRequest()
-                                            .authenticated()
-                                            .and()
-                                            .sessionManagement()
-                                            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
+                        {
+                            try {
+                                request.antMatchers(
+                                                "/**/authenticate",
+                                                "/**/register",
+                                                "/api/access/**",
+                                                "/h2-console/**",
+                                                // resources for swagger to work properly
+                                                "/v2/api-docs",
+                                                "/v3/api-docs",
+                                                "/v3/api-docs/**",
+                                                "/swagger-resources",
+                                                "/swagger-resources/**",
+                                                "/configuration/ui",
+                                                "/configuration/security",
+                                                "/swagger-ui/**",
+                                                "/webjars/**",
+                                                "/swagger-ui.html"
+                                        )
+                                        .permitAll()
+                                        .anyRequest()
+                                        .authenticated()
+                                        .and()
+                                        .sessionManagement()
+                                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        )
+                        }
+                )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 //                .cors()
