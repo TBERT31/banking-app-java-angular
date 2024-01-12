@@ -39,23 +39,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String userEmail;
         String jwt;
 
-        if(authHeader == null || !authHeader.startsWith(BEARER)){
+        if (authHeader == null || !authHeader.startsWith(BEARER)) {
             filterChain.doFilter(request, response);
             return;
         }
 
         jwt = authHeader.substring(7);
         userEmail = jwtUtils.extractUsername(jwt);
-        if( userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new EntityNotFoundException("User not found while validating JWT"));
-
-            if(jwtUtils.isTokenValid(jwt, userDetails)){
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    .orElseThrow(() -> new EntityNotFoundException("User not found while validation JWT"));
+            if (jwtUtils.isTokenValid(jwt, userDetails)) {
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
+                        = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
+        filterChain.doFilter(request, response);
     }
 }

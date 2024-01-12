@@ -10,12 +10,13 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
+
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -29,20 +30,29 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests(
                         (request) ->
-                                request.antMatchers("/**/auth", "/**/register")
-                                        .permitAll()
-                                        .anyRequest()
-                                        .authenticated()
+                            {
+                                try{
+                                    request.antMatchers("/**/authenticate", "/**/register")
+                                            .permitAll()
+                                            .anyRequest()
+                                            .authenticated()
+                                            .and()
+                                            .sessionManagement()
+                                            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
                         )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors()
+//                .cors()
         ;
 
         return http.build();
     }
 
-    @Bean
+   // @Bean
     public CorsFilter corsFilter(){
         // todo to be implemented
         return null;
