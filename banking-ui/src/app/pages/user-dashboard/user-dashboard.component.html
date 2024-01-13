@@ -1,26 +1,9 @@
 <div class="card p-2">
   <h2>My account at a glance</h2>
   <div class="d-flex flex-row justify-content-between card mx-5 mb-3 p-3">
-    <div class="card text-white bg-primary text-center col-3">
-      <div class="card-body">
-        <h4 class="card-title">Account balance</h4>
-        <h2 class="card-text">21 560€</h2>
-      </div>
-    </div>
-
-    <div class="card text-white bg-warning text-center col-3">
-      <div class="card-body">
-        <h4 class="card-title">Highest transfer</h4>
-        <h2 class="card-text">2 560€</h2>
-      </div>
-    </div>
-
-    <div class="card text-white bg-success text-center col-3">
-      <div class="card-body">
-        <h4 class="card-title">Highest deposit</h4>
-        <h2 class="card-text">2 980€</h2>
-      </div>
-    </div>
+    <app-light-info *ngFor="let info of accountInfoList"
+                    [infoInput]="info"
+    ></app-light-info>
   </div>
   <div class="card m-3 p-3">
     <div class="d-flex flex-row align-items-start mb-3">

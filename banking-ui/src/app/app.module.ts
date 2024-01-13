@@ -7,6 +7,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
+import { LightInfoComponent } from './components/light-info/light-info.component';
+import { MyTransactionsComponent } from './pages/my-transactions/my-transactions.component';
+import { MyContactListComponent } from './pages/my-contact-list/my-contact-list.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
     LoginComponent,
     RegisterComponent,
     MenuComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    LightInfoComponent,
+    MyTransactionsComponent,
+    MyContactListComponent
   ],
   imports: [
     BrowserModule,
