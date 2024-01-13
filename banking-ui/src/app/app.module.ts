@@ -10,6 +10,8 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
 import { LightInfoComponent } from './components/light-info/light-info.component';
 import { MyTransactionsComponent } from './pages/my-transactions/my-transactions.component';
 import { MyContactListComponent } from './pages/my-contact-list/my-contact-list.component';
+import { NewTransactionComponent } from './pages/new-transaction/new-transaction.component';
+import { NewContactComponent } from './pages/new-contact/new-contact.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { MyContactListComponent } from './pages/my-contact-list/my-contact-list.
     UserDashboardComponent,
     LightInfoComponent,
     MyTransactionsComponent,
-    MyContactListComponent
+    MyContactListComponent,
+    NewTransactionComponent,
+    NewContactComponent
   ],
   imports: [
     BrowserModule,
