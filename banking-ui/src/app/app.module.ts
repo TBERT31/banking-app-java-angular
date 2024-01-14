@@ -45,8 +45,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
   ],
   providers: [
     FirstService,
-    HttpClient,
-    HttpClientModule
+    HttpClient
   ],
   bootstrap: [AppComponent]
 })

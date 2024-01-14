@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "api-gen": "ng-openapi-gen --input ./src/app/swagger/swagger.json --output ./src/app/services"
   },
   "private": true,
   "dependencies": {
@@ -20,7 +21,9 @@
     "@angular/router": "^15.2.0",
     "@fortawesome/fontawesome-free": "^6.2.0",
     "bootstrap": "^5.2.1",
-    "ng2-charts": "^2.4.2",
+    "chart.js": "2.9.4",
+    "jquery": "^3.6.1",
+    "ng-openapi-gen": "^0.23.0",
     "ng2-datepicker": "^12.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -2,6 +2,7 @@ package com.tbert31.banking.controllers;
 
 import com.tbert31.banking.dto.UserDto;
 import com.tbert31.banking.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Tag(name = "user")
 public class UserController {
 
     private final UserService service;

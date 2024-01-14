@@ -3,6 +3,7 @@ package com.tbert31.banking.controllers;
 
 import com.tbert31.banking.dto.TransactionDto;
 import com.tbert31.banking.services.ContactService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.tbert31.banking.services.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/transactions")
 @RequiredArgsConstructor
+@Tag(name = "transactions")
 public class TransactionController {
     private final TransactionService service;
 

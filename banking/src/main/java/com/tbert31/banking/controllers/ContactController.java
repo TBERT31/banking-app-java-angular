@@ -3,6 +3,7 @@ package com.tbert31.banking.controllers;
 import com.tbert31.banking.dto.ContactDto;
 import com.tbert31.banking.services.AddressService;
 import com.tbert31.banking.services.ContactService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/contacts")
 @RequiredArgsConstructor
+@Tag(name = "contact")
 public class ContactController {
     private final ContactService service;
 

@@ -2,6 +2,7 @@ package com.tbert31.banking.controllers;
 
 import com.tbert31.banking.dto.AddressDto;
 import com.tbert31.banking.services.AddressService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/addresses")
 @RequiredArgsConstructor
+@Tag(name = "address")
 public class AddressController {
     private final AddressService service;
 
