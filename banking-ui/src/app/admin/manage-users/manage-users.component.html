@@ -1,0 +1,72 @@
+<div class="p-3">
+  <h2>Bank customers</h2>
+
+  <div class="d-flex justify-content-end mb-3">
+    <div class="form-check form-switch">
+      <label class="form-check-label" for="flexSwitchCheckChecked">Show inactive users only</label>
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+    </div>
+  </div>
+
+  <div>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th scope="col">Firstname</th>
+        <th scope="col">Lastname</th>
+        <th scope="col">IBAN</th>
+        <th scope="col">State</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td><span class="badge bg-success">Active</span></td>
+        <td class="">
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <div class="form-check form-switch">
+              <input class="form-check-input cursor-pointer" type="checkbox" checked>
+            </div>
+            |&nbsp;&nbsp;
+            <em class="fas fa-trash cursor-pointer text-danger"></em>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td><span class="badge bg-success">Active</span></td>
+        <td class="">
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <div class="form-check form-switch">
+              <input class="form-check-input cursor-pointer" type="checkbox">
+            </div>
+            |&nbsp;&nbsp;
+            <em class="fas fa-trash cursor-pointer text-danger"></em>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td >Larry the Bird</td>
+        <td >Larry the Bird</td>
+        <td><span class="badge bg-warning">Inactive</span></td>
+        <td class="">
+          <div class="d-flex flex-row justify-content-start align-items-center">
+            <div class="form-check form-switch">
+              <input class="form-check-input cursor-pointer" type="checkbox" checked>
+            </div>
+            |&nbsp;&nbsp;
+            <em class="fas fa-trash cursor-pointer text-danger"></em>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

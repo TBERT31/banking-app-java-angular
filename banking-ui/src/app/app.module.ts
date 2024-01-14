@@ -12,6 +12,11 @@ import { MyTransactionsComponent } from './pages/my-transactions/my-transactions
 import { MyContactListComponent } from './pages/my-contact-list/my-contact-list.component';
 import { NewTransactionComponent } from './pages/new-transaction/new-transaction.component';
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ManageUsersComponent } from './admin/manage-users/manage-users.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { MainAdminPageComponent } from './admin/main-admin-page/main-admin-page.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,12 @@ import { NewContactComponent } from './pages/new-contact/new-contact.component';
     MyTransactionsComponent,
     MyContactListComponent,
     NewTransactionComponent,
-    NewContactComponent
+    NewContactComponent,
+    ProfileComponent,
+    ManageUsersComponent,
+    MainPageComponent,
+    MainAdminPageComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,

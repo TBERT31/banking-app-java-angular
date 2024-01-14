@@ -1,4 +1,2 @@
-<app-menu></app-menu>
-<app-new-contact></app-new-contact>
-
+<app-menu *ngIf="isUserConnected"></app-menu>
 <router-outlet></router-outlet>
