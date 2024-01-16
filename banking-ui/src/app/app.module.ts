@@ -18,7 +18,11 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { MainAdminPageComponent } from './admin/main-admin-page/main-admin-page.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import {FirstService} from "./services/first-service/first-service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpInterceptorService} from "./services/http-interceptor/http-interceptor.service";
+import {FormsModule} from "@angular/forms";
+import { ConfirmRegisterComponent } from './pages/confirm-register/confirm-register.component';
+import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
 
 @NgModule({
   declarations: [
@@ -36,15 +40,22 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     ManageUsersComponent,
     MainPageComponent,
     MainAdminPageComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    ConfirmRegisterComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
-    FirstService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
     HttpClient
   ],
   bootstrap: [AppComponent]
