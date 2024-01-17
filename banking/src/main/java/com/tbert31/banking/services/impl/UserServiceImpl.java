@@ -8,6 +8,7 @@ import com.tbert31.banking.dto.AuthenticationResponse;
 import com.tbert31.banking.dto.UserDto;
 import com.tbert31.banking.models.Role;
 import com.tbert31.banking.models.User;
+import com.tbert31.banking.models.Account;
 import com.tbert31.banking.repositories.RoleRepository;
 import com.tbert31.banking.repositories.UserRepository;
 import com.tbert31.banking.services.AccountService;
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<UserDto> findAll(){
         return repository.findAll()
                 .stream()
@@ -77,15 +79,21 @@ public class UserServiceImpl implements UserService {
         User user = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No user was found for user account validation"));
 
-        // create a bank account
-        AccountDto account = AccountDto.builder()
-                .user(UserDto.fromEntity(user))
-                .build();
-        accountService.save(account);
+        if (user.getAccount() == null) {
+            // create a bank account
+            AccountDto account = AccountDto.builder()
+                    .user(UserDto.fromEntity(user))
+                    .build();
+            var savedAccount = accountService.save(account);
+            user.setAccount(
+                    Account.builder()
+                            .id(savedAccount)
+                            .build()
+            );
+        }
 
         user.setActive(true);
         repository.save(user);
-
         return user.getId();
     }
 

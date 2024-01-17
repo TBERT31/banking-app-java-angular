@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class MenuComponent implements OnInit{
 
-  @Input() isAdmin = false;
+  @Input() isAdmin = true;
   role = 'user';
 
   constructor() {

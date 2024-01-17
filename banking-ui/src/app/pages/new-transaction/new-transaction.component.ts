@@ -17,6 +17,7 @@ export class NewTransactionComponent implements OnInit{
   transaction: TransactionDto = {};
   contacts: Array<ContactDto> = [];
   accountBalance = 0;
+  errorMessages: Array<string> = [];
 
   constructor(
     private statisticService: StatisticsService,
@@ -46,6 +47,25 @@ export class NewTransactionComponent implements OnInit{
         this.contacts = data;
       }
     });
+  }
+
+  async cancel(){
+    await this.router.navigate(['user', 'my-transactions']);
+  }
+
+  save(){
+    this.errorMessages = [];
+    this.transaction.userId = this.helperService.userId;
+    this.transactionsService.save1({
+      body: this.transaction
+    }).subscribe({
+      next: async () => {
+        await this.router.navigate(['user', 'my-transactions']);
+      },
+      error: (err) => {
+        this.errorMessages = err.error.validationErrors;
+      }
+    })
   }
 
 }

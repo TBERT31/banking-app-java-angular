@@ -1,5 +1,8 @@
 <div class="p-3">
   <h2>New transaction</h2>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMessages.length">
+    <p *ngFor="let msg of errorMessages">{{msg}}</p>
+  </div>
   <div class="card p-3">
     <h3>You account balance: {{accountBalance}}€</h3>
     <div class="mb-3">
@@ -26,10 +29,10 @@
       <input  [(ngModel)]="transaction.destinationIban"  type="text" class="form-control" id="iban" placeholder="FR12 4567 8910 1112">
     </div>
     <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-link">
+      <button (click)="cancel()" type="button" class="btn btn-link">
         <em class="fas fa-times"></em>&nbsp;Cancel
       </button>
-      <button type="button" class="btn btn-danger">
+      <button (click)="save()" type="button" class="btn btn-danger">
         <em class="fas fa-save"></em>&nbsp;Save
       </button>
     </div>

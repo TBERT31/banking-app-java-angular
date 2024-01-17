@@ -42,6 +42,10 @@ public class UserDto {
     @Size(min = 8, max=50, message = "Le mot de passe doit-être compris entre 8 et 5 caractères")
     private String password;
 
+    private String iban;
+
+    private boolean active;
+
     public static UserDto fromEntity(User user){
         return UserDto.builder()
                 .id(user.getId())
@@ -49,6 +53,8 @@ public class UserDto {
                 .lastname(user.getLastname())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .iban(user.getAccount() == null ? "" : user.getAccount().getIban())
+                .active(user.isActive())
                 .build();
     }
 
