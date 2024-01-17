@@ -23,7 +23,7 @@ export class AdminGuardService implements CanActivate{
       // @ts-ignore
       const decodedToken = helper.decodeToken(token);
 
-      if(decodedToken.authorities[0].authority === 'ROLE_ADMIN'){
+      if(decodedToken.authorities[0].authority !== 'ROLE_ADMIN'){
         this.router.navigate(['access-denied']);
         return false;
       }
