@@ -8,19 +8,34 @@
   <div class="card m-3 p-3">
     <div class="d-flex flex-row align-items-start mb-3">
       <div class="me-3">
-        <label for="start-date" class="form-label">Start date</label>
-        <input type="text" class="form-control" id="start-date" placeholder="--/--/----"/>
+        <label class="form-label">Start date</label>
+        <ngx-datepicker [options]="dateOptions" [(ngModel)]="startDate" class="form-control"></ngx-datepicker>
       </div>
 
       <div class="">
-        <label for="end-date" class="form-label">End date</label>
-        <input type="text" class="form-control" id="end-date" placeholder="--/--/----"/>
+        <label class="form-label">End date</label>
+        <ngx-datepicker [options]="dateOptions" [(ngModel)]="endDate"  class="form-control"></ngx-datepicker>
       </div>
+
+      <button (click)="filterStatistics()"
+        class="btn btn-primary"
+      >
+        <em class="fas fa-search"></em>&nbsp;Search
+      </button>
     </div>
 
     <div>
       <div class="card p-3">
-
+        <div>
+          <canvas baseChart
+                  [chartType]="chartType"
+                  [datasets]="dataset"
+                  [labels]="labels"
+                  [options]="chartOptions"
+                  [legend]="true"
+                  [title]="'My awesome chart'"
+          ></canvas>
+        </div>
       </div>
     </div>
   </div>

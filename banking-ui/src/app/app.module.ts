@@ -23,6 +23,9 @@ import {HttpInterceptorService} from "./services/http-interceptor/http-intercept
 import {FormsModule} from "@angular/forms";
 import { ConfirmRegisterComponent } from './pages/confirm-register/confirm-register.component';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
+import {ChartsModule} from "ng2-charts";
+import {DatepickerModule} from "ng2-datepicker";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -48,7 +51,9 @@ import { AccessDeniedComponent } from './pages/access-denied/access-denied.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartsModule,
+    DatepickerModule
   ],
   providers: [
     {
@@ -56,7 +61,8 @@ import { AccessDeniedComponent } from './pages/access-denied/access-denied.compo
       useClass: HttpInterceptorService,
       multi: true
     },
-    HttpClient
+    HttpClient,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
